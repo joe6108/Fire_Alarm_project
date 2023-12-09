@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>森林火災預警系統</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3">
+        <div class="container">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent"><span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse"  id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">介紹</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">內容</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="p-5 text-center border-bottom" id="my">
+        <h1>即時環境監測</h1>
+    </div>
+    <div class="p-5 text-center border-bottom" id="tempture">
+        <h2>溫度</h2>
+        <p id="p1">Hello World!</p>
+        <div>
+            <canvas id="Temp_image" width="3" height="1">
+                <p>Hello Fallback World</p>
+            </canvas>
+        </div>
+        <script>
+            $(document).ready(function () {
+                var jsonData;
+                var Temp_image; 
+                $.getJSON("http://127.0.0.1:5000/json", function (data) {
+                    jsonData = data;
+                    temp_image_init();
+                });
+                function temp_image_init() {
+                    var total = jsonData["total"];
+                    var count = jsonData["count"];
+                    if (count > total) {
+                        count = total;
+                    }
+                    var labels = new Array(count);
+                    var first_data = new Array(count);
+                    var secord_data = new Array(count);
+                    for (var i = 0; i < count; i++) {
+                        labels[i] = i;
+                        first_data[i] = jsonData["data"][i]["temp"];
+                        secord_data[i] = jsonData["data"][i]["humidy"];
+                    }
+                    const data = {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Dataset 1',
+                                data: first_data,
+                                fill: false,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Dataset 2',
+                                data: secord_data,
+                                fill: false,
+                                borderColor: 'rgb(255, 110, 110)',
+                                tension: 0.1
+                            }
+                        ]
+                    };
+        
+                    const config = {
+                        type: 'line',
+                        data: data,
+                        options: {
+                            scales: {
+                                x: {
+                                    display: false
+                                }
+                            },
+                            layout: {
+                                padding: {
+                                    left: 100,
+                                    right: 100
+                                }
+                            },
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Temp image per serord...'
+                                }
+                            }
+                        },
+                    };
+                    const ctx = document.getElementById('Temp_image').getContext('2d');
+                    Temp_image = new Chart(ctx, config);
+                    document.getElementById("p1").innerHTML = "init!";
+                }
+        
+                function temp_image_update() {
+                    $.getJSON("http://127.0.0.1:5000/json", function (data) {
+                        jsonData = data;
+                        update_image();
+                    });
+        
+                    function update_image() {
+                        var total = jsonData["total"];
+                        var count = jsonData["count"];
+                        if (count > total) {
+                            count = total;
+                        }
+                        var labels = new Array(count);
+                        var first_data = new Array(count);
+                        var secord_data = new Array(count);
+                        for (var i = 0; i < count; i++) {
+                            labels[i] = i;
+                            first_data[i] = jsonData["data"][i]["temp"];
+                            secord_data[i] = jsonData["data"][i]["humidy"];
+                        }
+                        const data = {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Dataset 1',
+                                    data: first_data,
+                                    fill: false,
+                                    borderColor: 'rgb(75, 192, 192)',
+                                    tension: 0.1
+                                },
+                                {
+                                    label: 'Dataset 2',
+                                    data: secord_data,
+                                    fill: false,
+                                    borderColor: 'rgb(75, 192, 192)',
+                                    tension: 0.1
+                                }
+                            ]
+                        };
+        
+                        const config = {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                scales: {
+                                    x: {
+                                        display: false
+                                    }
+                                },
+                                layout: {
+                                    padding: {
+                                        left: 100,
+                                        right: 100
+                                    }
+                                },
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Chart.js Line Chart'
+                                    }
+                                }
+                            },
+                        };
+                        Temp_image.data.labels = labels;
+                        Temp_image.data.datasets[0].data = first_data;
+                        Temp_image.data.datasets[1].data = secord_data;
+                        Temp_image.update();
+                        document.getElementById("p1").innerHTML = "update!";
+                    }
+                }
+        
+                var intervalId = setInterval(temp_image_update, 1000);
+            });
+        </script>
+         
+    </div>
+
+    <div class="p-5 text-center border-bottom" id="humidy">
+        <h2>濕度</h2>
+        <p id="p2">Hello World!</p>
+        <div>
+            <canvas id="hum_image" width="3" height="1">
+                <p>Hello Fallback World</p>
+            </canvas>
+        </div>
+        <script>
+            $(document).ready(function () {
+                var jsonData;
+                var hum_image; 
+        
+                $.getJSON("http://127.0.0.1:5000/json", function (data) {
+                    jsonData = data;
+                    hum_image_init();
+                });
+                function hum_image_init() {
+                    var total = jsonData["total"];
+                    var count = jsonData["count"];
+                    if (count > total) {
+                        count = total;
+                    }
+                    var labels = new Array(count);
+                    var first_data = new Array(count);
+                    var secord_data = new Array(count);
+                    for (var i = 0; i < count; i++) {
+                        labels[i] = i;
+                        first_data[i] = jsonData["data"][i]["humidy"];
+                        secord_data[i] = jsonData["data"][i]["temp"];
+                    }
+                    const data = {
+                        labels: labels,
+                        datasets: [
+                            {
+                                label: 'Dataset 1',
+                                data: first_data,
+                                fill: false,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Dataset 2',
+                                data: secord_data,
+                                fill: false,
+                                borderColor: 'rgb(255, 110, 110)',
+                                tension: 0.1
+                            }
+                        ]
+                    };
+        
+                    const config = {
+                        type: 'line',
+                        data: data,
+                        options: {
+                            scales: {
+                                x: {
+                                    display: false // 將 x 軸的值隱藏
+                                }
+                            },
+                            layout: {
+                                padding: {
+                                    left: 100,
+                                    right: 100
+                                }
+                            },
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: 'top',
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Humidy image per serord...'
+                                }
+                            }
+                        },
+                    };
+        
+                    const ctx = document.getElementById('hum_image').getContext('2d');
+                    hum_image = new Chart(ctx, config);
+                    document.getElementById("p2").innerHTML = "init!";
+                }
+        
+                function hum_image_update() {
+                    $.getJSON("http://127.0.0.1:5000/json", function (data) {
+                        jsonData = data;
+                        hum_update_image();
+                    });
+        
+                    function hum_update_image() {
+                        // x軸
+                        var total = jsonData["total"];
+                        var count = jsonData["count"];
+                        if (count > total) {
+                            count = total;
+                        }
+                        var labels = new Array(count);
+                        var first_data = new Array(count);
+                        var secord_data = new Array(count);
+                        for (var i = 0; i < count; i++) {
+                            labels[i] = i;
+                            first_data[i] = jsonData["data"][i]["humidy"];
+                            secord_data[i] = jsonData["data"][i]["temp"];
+                        }
+                        const data = {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Dataset 1',
+                                    data: first_data,
+                                    fill: false,
+                                    borderColor: 'rgb(75, 192, 192)',
+                                    tension: 0.1
+                                },
+                                {
+                                    label: 'Dataset 2',
+                                    data: secord_data,
+                                    fill: false,
+                                    borderColor: 'rgb(75, 192, 192)',
+                                    tension: 0.1
+                                }
+                            ]
+                        };
+        
+                        const config = {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                scales: {
+                                    x: {
+                                        display: false
+                                    }
+                                },
+                                layout: {
+                                    padding: {
+                                        left: 100,
+                                        right: 100
+                                    }
+                                },
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Humidy'
+                                    }
+                                }
+                            },
+                        };
+        
+                        // 更新圖表
+                        hum_image.data.labels = labels;
+                        hum_image.data.datasets[0].data = first_data;
+                        hum_image.data.datasets[1].data = secord_data;
+                        hum_image.update();
+                        document.getElementById("p2").innerHTML = "update!";
+                    }
+                }
+        
+                var intervalId = setInterval(hum_image_update, 1000);
+            });
+        </script>
+         
+    </div>
+    
+
+    <footer class="p-4 border-top">
+        <div class="container d-flex align-items-center justify-content-between">
+            <p class="mb-0 text-muted">
+                &copy; tku
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
