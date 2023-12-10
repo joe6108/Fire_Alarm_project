@@ -43,10 +43,11 @@
             </canvas>
         </div>
         <script>
+            var url = "https://bc8c-2001-b011-6-182f-411-3f91-2ade-d9fe.ngrok-free.app/json";
             $(document).ready(function () {
                 var jsonData;
                 var Temp_image; 
-                $.getJSON("http://127.0.0.1:5000/json", function (data) {
+                $.getJSON(url, function (data) {
                     jsonData = data;
                     temp_image_init();
                 });
@@ -117,7 +118,7 @@
                 }
         
                 function temp_image_update() {
-                    $.getJSON("http://127.0.0.1:5000/json", function (data) {
+                    $.getJSON(url, function (data) {
                         jsonData = data;
                         update_image();
                     });
@@ -210,7 +211,7 @@
                 var jsonData;
                 var hum_image; 
         
-                $.getJSON("http://127.0.0.1:5000/json", function (data) {
+                $.getJSON(url, function (data) {
                     jsonData = data;
                     hum_image_init();
                 });
@@ -282,7 +283,7 @@
                 }
         
                 function hum_image_update() {
-                    $.getJSON("http://127.0.0.1:5000/json", function (data) {
+                    $.getJSON(url, function (data) {
                         jsonData = data;
                         hum_update_image();
                     });

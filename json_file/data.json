@@ -1,126 +1,126 @@
 {
   "total": 30,
-  "count": 82,
+  "count": 134,
   "data": [
     {
-      "temp": 79,
-      "humidy": -29
+      "temp": 20,
+      "humidy": 31
     },
     {
-      "temp": 80,
-      "humidy": -30
+      "temp": 21,
+      "humidy": 30
     },
     {
-      "temp": 81,
-      "humidy": -31
-    },
-    {
-      "temp": 82,
-      "humidy": -32
-    },
-    {
-      "temp": 83,
-      "humidy": -33
-    },
-    {
-      "temp": 84,
-      "humidy": -34
-    },
-    {
-      "temp": 85,
-      "humidy": -35
-    },
-    {
-      "temp": 86,
-      "humidy": -36
-    },
-    {
-      "temp": 87,
-      "humidy": -37
-    },
-    {
-      "temp": 88,
-      "humidy": -38
-    },
-    {
-      "temp": 89,
-      "humidy": -39
+      "temp": 16,
+      "humidy": 34
     },
     {
       "temp": 19,
-      "humidy": 31
+      "humidy": 34
     },
     {
       "temp": 20,
       "humidy": 30
     },
     {
+      "temp": 19,
+      "humidy": 34
+    },
+    {
+      "temp": 18,
+      "humidy": 30
+    },
+    {
       "temp": 21,
+      "humidy": 35
+    },
+    {
+      "temp": 21,
+      "humidy": 33
+    },
+    {
+      "temp": 18,
+      "humidy": 30
+    },
+    {
+      "temp": 17,
+      "humidy": 32
+    },
+    {
+      "temp": 16,
+      "humidy": 35
+    },
+    {
+      "temp": 17,
+      "humidy": 35
+    },
+    {
+      "temp": 20,
+      "humidy": 34
+    },
+    {
+      "temp": 18,
+      "humidy": 32
+    },
+    {
+      "temp": 21,
+      "humidy": 31
+    },
+    {
+      "temp": 15,
+      "humidy": 31
+    },
+    {
+      "temp": 16,
+      "humidy": 32
+    },
+    {
+      "temp": 20,
+      "humidy": 31
+    },
+    {
+      "temp": 15,
+      "humidy": 34
+    },
+    {
+      "temp": 16,
+      "humidy": 32
+    },
+    {
+      "temp": 16,
+      "humidy": 31
+    },
+    {
+      "temp": 21,
+      "humidy": 30
+    },
+    {
+      "temp": 18,
+      "humidy": 33
+    },
+    {
+      "temp": 15,
+      "humidy": 35
+    },
+    {
+      "temp": 20,
       "humidy": 29
     },
     {
-      "temp": 22,
-      "humidy": 28
+      "temp": 19,
+      "humidy": 34
     },
     {
-      "temp": 23,
-      "humidy": 27
+      "temp": 15,
+      "humidy": 35
     },
     {
-      "temp": 24,
-      "humidy": 26
+      "temp": 16,
+      "humidy": 31
     },
     {
-      "temp": 25,
-      "humidy": 25
-    },
-    {
-      "temp": 26,
-      "humidy": 24
-    },
-    {
-      "temp": 27,
-      "humidy": 23
-    },
-    {
-      "temp": 28,
-      "humidy": 22
-    },
-    {
-      "temp": 29,
-      "humidy": 21
-    },
-    {
-      "temp": 71,
-      "humidy": -21
-    },
-    {
-      "temp": 72,
-      "humidy": -22
-    },
-    {
-      "temp": 73,
-      "humidy": -23
-    },
-    {
-      "temp": 74,
-      "humidy": -24
-    },
-    {
-      "temp": 75,
-      "humidy": -25
-    },
-    {
-      "temp": 76,
-      "humidy": -26
-    },
-    {
-      "temp": 77,
-      "humidy": -27
-    },
-    {
-      "temp": 78,
-      "humidy": -28
+      "temp": 19,
+      "humidy": 29
     }
   ]
 }
