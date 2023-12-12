@@ -24,9 +24,9 @@ line_user_path = './Line_userid/user_id.json' # 儲存line好友的userid的位�
 listObj = []
 # Line_setting
 #access_token = '你的 LINE Channel access token'
-access_token = '1DmrLp0B6eqeHmaB8Rr8kIHqOXFqpW8RTYLOuX4mgVGo++aw/BQEBdwl3TR6Fz2p9UKaHgwDBY4RVik4qu4cHzwftJflKeRegoPu37mlM9WRdncAeLIyLZYpz6M1woUUmozTsb87EtvEcfPrutkXyAdB04t89/1O/w1cDnyilFU='
+access_token = ''
 #secret = '你的 LINE Channel secret'
-secret = 'd7bdb9d6d029bc1d34e438cd5fb19990'
+secret = ''
 
 # 中斷標誌，用來通知執行緒停止
 stop_flag = threading.Event()
@@ -95,7 +95,7 @@ def get_update_data():
                                     num = userid_buffer['count']
                                     for i in range(num):
                                         userid = userid_buffer['user'][i]['userid']  
-                                        occur_fire(userid, last_temp, temp, (count+1)%total)
+                                        #occur_fire(userid, last_temp, temp, (count+1)%total)
                     if(index < total):
                         listObj["data"].append({
                             "temp": temp,
@@ -109,6 +109,10 @@ def get_update_data():
                         json.dump(listObj, file, indent=2)
         except KeyboardInterrupt:
             print("ctrl + C")
+        finally:
+            ser.close()    # 清除序列通訊物件
+            print("clear ser...")
+
 
 get_arduino_thread = threading.Thread(target=get_update_data)
 
@@ -172,13 +176,26 @@ def send_json():
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     return render_template("index.html")
+@app.route("/test", methods=['GET', 'POST'])
+def test():
+    if path.isfile(line_user_path) is True:
+        userid_buffer = []
+        with open(line_user_path) as fp:
+            userid_buffer = json.load(fp)
+            num = userid_buffer['count']
+            for i in range(num):
+                userid = userid_buffer['user'][i]['userid'] 
+                occur_fire(userid, 0, 0, 0) 
+                print(userid)
+    return 'OK'        
 
 if __name__ == "__main__":
     try:
         get_arduino_thread.start()
         app.run()
+    except KeyboardInterrupt:
+        print("ctrl + C")
     finally:
         stop_flag.set()
         get_arduino_thread.join()
-        ser.close()    # 清除序列通訊物件
         print("success clear last process...\n")

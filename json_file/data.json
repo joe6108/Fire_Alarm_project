@@ -1,126 +1,126 @@
 {
   "total": 30,
-  "count": 134,
+  "count": 471,
   "data": [
     {
-      "temp": 20,
-      "humidy": 31
-    },
-    {
-      "temp": 21,
-      "humidy": 30
-    },
-    {
-      "temp": 16,
-      "humidy": 34
-    },
-    {
-      "temp": 19,
-      "humidy": 34
-    },
-    {
-      "temp": 20,
-      "humidy": 30
-    },
-    {
-      "temp": 19,
-      "humidy": 34
-    },
-    {
-      "temp": 18,
-      "humidy": 30
-    },
-    {
-      "temp": 21,
-      "humidy": 35
-    },
-    {
-      "temp": 21,
-      "humidy": 33
-    },
-    {
-      "temp": 18,
-      "humidy": 30
+      "temp": 15,
+      "humidy": 18
     },
     {
       "temp": 17,
-      "humidy": 32
+      "humidy": 17
     },
     {
       "temp": 16,
-      "humidy": 35
+      "humidy": 20
+    },
+    {
+      "temp": 15,
+      "humidy": 16
+    },
+    {
+      "temp": 21,
+      "humidy": 17
     },
     {
       "temp": 17,
-      "humidy": 35
-    },
-    {
-      "temp": 20,
-      "humidy": 34
-    },
-    {
-      "temp": 18,
-      "humidy": 32
-    },
-    {
-      "temp": 21,
-      "humidy": 31
-    },
-    {
-      "temp": 15,
-      "humidy": 31
+      "humidy": 18
     },
     {
       "temp": 16,
-      "humidy": 32
+      "humidy": 19
     },
     {
-      "temp": 20,
-      "humidy": 31
-    },
-    {
-      "temp": 15,
-      "humidy": 34
-    },
-    {
-      "temp": 16,
-      "humidy": 32
-    },
-    {
-      "temp": 16,
-      "humidy": 31
-    },
-    {
-      "temp": 21,
-      "humidy": 30
-    },
-    {
-      "temp": 18,
-      "humidy": 33
+      "temp": 17,
+      "humidy": 16
     },
     {
       "temp": 15,
-      "humidy": 35
+      "humidy": 19
     },
     {
-      "temp": 20,
-      "humidy": 29
+      "temp": 15,
+      "humidy": 21
+    },
+    {
+      "temp": 17,
+      "humidy": 17
     },
     {
       "temp": 19,
-      "humidy": 34
+      "humidy": 20
     },
     {
-      "temp": 15,
-      "humidy": 35
+      "temp": 17,
+      "humidy": 18
     },
     {
-      "temp": 16,
-      "humidy": 31
+      "temp": 17,
+      "humidy": 17
     },
     {
       "temp": 19,
-      "humidy": 29
+      "humidy": 15
+    },
+    {
+      "temp": 18,
+      "humidy": 15
+    },
+    {
+      "temp": 21,
+      "humidy": 19
+    },
+    {
+      "temp": 18,
+      "humidy": 18
+    },
+    {
+      "temp": 19,
+      "humidy": 17
+    },
+    {
+      "temp": 19,
+      "humidy": 18
+    },
+    {
+      "temp": 15,
+      "humidy": 16
+    },
+    {
+      "temp": 17,
+      "humidy": 15
+    },
+    {
+      "temp": 15,
+      "humidy": 21
+    },
+    {
+      "temp": 15,
+      "humidy": 16
+    },
+    {
+      "temp": 17,
+      "humidy": 18
+    },
+    {
+      "temp": 20,
+      "humidy": 18
+    },
+    {
+      "temp": 21,
+      "humidy": 15
+    },
+    {
+      "temp": 15,
+      "humidy": 17
+    },
+    {
+      "temp": 19,
+      "humidy": 15
+    },
+    {
+      "temp": 15,
+      "humidy": 17
     }
   ]
 }

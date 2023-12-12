@@ -43,7 +43,7 @@
             </canvas>
         </div>
         <script>
-            var url = "https://bc8c-2001-b011-6-182f-411-3f91-2ade-d9fe.ngrok-free.app/json";
+            var url = "";
             $(document).ready(function () {
                 var jsonData;
                 var Temp_image; 
@@ -92,6 +92,11 @@
                             scales: {
                                 x: {
                                     display: false
+                                },
+                                y: {
+                                    beginAtZero: true,
+                                    position: 'left',
+                                    yAxisID: 'y-axis-1'  // 設定 yAxisID
                                 }
                             },
                             layout: {
