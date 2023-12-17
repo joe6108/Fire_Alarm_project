@@ -18,7 +18,10 @@ void loop() {
     killed_key = 1;
   }
   json_doc["temp"] = 18;
-  json_doc["humidy"] = 18;
+  json_doc["humidy"] = 20;
+  json_doc["outputV"] = 30;
+  json_doc["ugm3"] = 30;
+  json_doc["aqi"] = 30;
   json_doc["killed_key"] = killed_key;
   serializeJson(json_doc, json_output);
   //Serial.println( "string to json:" );

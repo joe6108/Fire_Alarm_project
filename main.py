@@ -20,8 +20,13 @@ COM_PORT = 'COM5'    # 指定通訊埠名稱
 BAUD_RATES = 115200    # 設定傳輸速率
 ser = serial.Serial(COM_PORT, BAUD_RATES)   # 初始化序列通訊埠
 file_path = './json_file/data.json' # 想儲存的檔案名稱
+'''
+COM_PORT_2 = 'COM4'
+ser_2 = serial.Serial(COM_PORT_2, BAUD_RATES)   # 初始化序列通訊埠
+'''
+file_path_2 = './json_file/data2.json' # 想儲存的檔案名稱
+# Line的部分
 line_user_path = './Line_userid/user_id.json' # 儲存line好友的userid的位置
-listObj = []
 # Line_setting
 #access_token = '你的 LINE Channel access token'
 access_token = ''
@@ -32,7 +37,7 @@ secret = ''
 stop_flag = threading.Event()
 
 # json_file儲存的數據大小
-json_Max_backut = 30
+json_Max_backut = 10
 
 def occur_fire(userid, last, now, id):  
     line_bot_api = LineBotApi(access_token)      
@@ -55,9 +60,9 @@ def get_update_data():
                     init_data['data'] = []
                     json.dump(init_data, file, indent=2)
             killed_key = 0
-
+            listObj = []
             while killed_key == 0:
-                while ser.in_waiting:          
+                while ser.in_waiting:     
                     data_raw = ser.readline()  
                     data = data_raw.decode()  
                     #print('接收到的原始資料：', data_raw)
@@ -66,6 +71,9 @@ def get_update_data():
                     print('接收到的資料：', j)
                     temp = j["temp"]
                     hum = j["humidy"]
+                    outputV = j["outputV"]
+                    ugm3 = j["ugm3"]
+                    aqi = j["aqi"]
                     killed_key = j["killed_key"]
                     if killed_key == 1:
                         # 在某個時間點手動設置中斷標誌，通知執行緒停止
@@ -96,26 +104,123 @@ def get_update_data():
                                     for i in range(num):
                                         userid = userid_buffer['user'][i]['userid']  
                                         #occur_fire(userid, last_temp, temp, (count+1)%total)
+                    num_index = index % total
                     if(index < total):
                         listObj["data"].append({
                             "temp": temp,
-                            "humidy": hum
+                            "humidy": hum,
+                            "outputV": outputV,
+                            "ugm3": ugm3,
+                            "aqi": aqi
                         })
                     else:
-                        index %= total
-                        listObj["data"][index]["temp"] = temp
-                        listObj["data"][index]["humidy"] = hum
+                        listObj["data"][num_index]["temp"] = temp
+                        listObj["data"][num_index]["humidy"] = hum
+                        listObj["data"][num_index]["outputV"] = outputV
+                        listObj["data"][num_index]["ugm3"] = ugm3
+                        listObj["data"][num_index]["aqi"] = aqi
                     with open(file_path, 'w') as file:
                         json.dump(listObj, file, indent=2)
+                    #可刪
+                    if(index > total):
+                        with open(file_path_2,'r') as file:
+                            listObj = json.load(file) 
+                        listObj["data"][num_index]["temp"] = 50
+                        listObj["data"][num_index]["humidy"] = 40
+                        listObj["data"][num_index]["outputV"] = 30
+                        listObj["data"][num_index]["ugm3"] = 20
+                        listObj["data"][num_index]["aqi"] = 10
+                    with open(file_path_2, 'w') as file2:
+                        json.dump(listObj, file2, indent=2)
+
+                    
         except KeyboardInterrupt:
             print("ctrl + C")
         finally:
             ser.close()    # 清除序列通訊物件
             print("clear ser...")
+'''
+def get_update_data_2():
+    while not stop_flag.is_set():
+        time.sleep(1)
+        try:
+            ## 進行初始化
+            if path.isfile(file_path_2) is False:
+                with open(file_path_2, 'w') as file:
+                    init_data = {}
+                    init_data['total'] = json_Max_backut
+                    init_data['count'] = 0
+                    init_data['data'] = []
+                    json.dump(init_data, file, indent=2)
+            killed_key = 0
+            listObj = []
+            while killed_key == 0:
+                while ser.in_waiting:     
+                    data_raw = ser.readline()  
+                    data = data_raw.decode()  
+                    #print('接收到的原始資料：', data_raw)
+                    # str 轉 dict (json格式)
+                    j = json.loads(data)
+                    print('接收到的資料：', j)
+                    temp = j["temp"]
+                    hum = j["humidy"]
+                    outputV = j["outputV"]
+                    ugm3 = j["ugm3"]
+                    aqi = j["aqi"]
+                    killed_key = j["killed_key"]
+                    if killed_key == 1:
+                        # 在某個時間點手動設置中斷標誌，通知執行緒停止
+                        time.sleep(5)
+                        stop_flag.set()
+                        break
+                    with open(file_path_2) as fp:
+                        listObj = json.load(fp)          
+                    total = listObj["total"] 
+                    index = listObj["count"]
+                    count = index
+                    listObj["count"] = count + 1
+                    print(total, index)
+                    if(count > 0):
+                        count = (count-1) % total
+                        last_temp = listObj["data"][count]["temp"]
+                        last_hum = listObj["data"][count]["humidy"]
+                        if(last_temp < temp):
+                            print("fire occur ?!")
+                            if path.isfile(line_user_path) is True:
+                                userid_buffer = []
+                                with open(line_user_path) as fp:
+                                    userid_buffer = json.load(fp)
+                                    num = userid_buffer['count']
+                                    for i in range(num):
+                                        userid = userid_buffer['user'][i]['userid']  
+                                        #occur_fire(userid, last_temp, temp, (count+1)%total)
+                    num_index = index % total
+                    if(index < total):
+                        listObj["data"].append({
+                            "temp": temp,
+                            "humidy": hum,
+                            "outputV": outputV,
+                            "ugm3": ugm3,
+                            "aqi": aqi
+                        })
+                    else:
+                        listObj["data"][num_index]["temp"] = temp
+                        listObj["data"][num_index]["humidy"] = hum
+                        listObj["data"][num_index]["outputV"] = outputV
+                        listObj["data"][num_index]["ugm3"] = ugm3
+                        listObj["data"][num_index]["aqi"] = aqi
+                    with open(file_path_2, 'w') as file:
+                        json.dump(listObj, file, indent=2)             
+        except KeyboardInterrupt:
+            print("ctrl + C")
+        finally:
+            ser_2.close()    # 清除序列通訊物件
+            print("clear ser...")
 
+'''
 
 get_arduino_thread = threading.Thread(target=get_update_data)
-
+#get_arduino_thread_2 = threading.Thread(target=get_update_data_2)
 @app.route("/", methods=['POST'])
 def linebot():
     body = request.get_data(as_text=True)                    # 取得收到的訊息內容
@@ -173,6 +278,12 @@ def send_json():
     with open("./json_file/data.json") as fp:
         listObj = json.load(fp) 
     return json.dumps(listObj)
+@app.route("/json2", methods=['GET', 'POST'])
+def send_json_2():
+    listObj2 = []
+    with open("./json_file/data2.json") as fp:
+        listObj2 = json.load(fp) 
+    return json.dumps(listObj2)
 @app.route("/home", methods=['GET', 'POST'])
 def home():
     return render_template("index.html")
@@ -192,10 +303,12 @@ def test():
 if __name__ == "__main__":
     try:
         get_arduino_thread.start()
+        #get_arduino_thread.start_2()
         app.run()
     except KeyboardInterrupt:
         print("ctrl + C")
     finally:
         stop_flag.set()
         get_arduino_thread.join()
+        #get_arduino_thread_2.join()
         print("success clear last process...\n")

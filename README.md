@@ -11,6 +11,16 @@
 
 4. 打開下方的網址連結。
 
+## 其餘事項
+
+如要使用外網，那就需要更改index.html的url1以及url2
+
+Line_bot也是，需要更改
+#access_token = '你的 LINE Channel access token'
+#secret = '你的 LINE Channel secret'
+
+而arduino則需要更改序列阜
+
 ## 注意事項
 
 必須透過按鈕先停止數據收集，否則不知會發生什麼事。

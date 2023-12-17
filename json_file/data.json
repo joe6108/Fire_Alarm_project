@@ -1,126 +1,76 @@
 {
-  "total": 30,
-  "count": 471,
+  "total": 10,
+  "count": 277,
   "data": [
     {
-      "temp": 15,
-      "humidy": 18
-    },
-    {
-      "temp": 17,
-      "humidy": 17
-    },
-    {
-      "temp": 16,
-      "humidy": 20
-    },
-    {
-      "temp": 15,
-      "humidy": 16
-    },
-    {
-      "temp": 21,
-      "humidy": 17
-    },
-    {
-      "temp": 17,
-      "humidy": 18
-    },
-    {
-      "temp": 16,
-      "humidy": 19
-    },
-    {
-      "temp": 17,
-      "humidy": 16
-    },
-    {
-      "temp": 15,
-      "humidy": 19
-    },
-    {
-      "temp": 15,
-      "humidy": 21
-    },
-    {
-      "temp": 17,
-      "humidy": 17
+      "temp": 19,
+      "humidy": 18,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
     },
     {
       "temp": 19,
-      "humidy": 20
-    },
-    {
-      "temp": 17,
-      "humidy": 18
-    },
-    {
-      "temp": 17,
-      "humidy": 17
-    },
-    {
-      "temp": 19,
-      "humidy": 15
-    },
-    {
-      "temp": 18,
-      "humidy": 15
-    },
-    {
-      "temp": 21,
-      "humidy": 19
-    },
-    {
-      "temp": 18,
-      "humidy": 18
-    },
-    {
-      "temp": 19,
-      "humidy": 17
-    },
-    {
-      "temp": 19,
-      "humidy": 18
+      "humidy": 17,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
     },
     {
       "temp": 15,
-      "humidy": 16
-    },
-    {
-      "temp": 17,
-      "humidy": 15
-    },
-    {
-      "temp": 15,
-      "humidy": 21
-    },
-    {
-      "temp": 15,
-      "humidy": 16
-    },
-    {
-      "temp": 17,
-      "humidy": 18
+      "humidy": 19,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
     },
     {
       "temp": 20,
-      "humidy": 18
+      "humidy": 21,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
     },
     {
-      "temp": 21,
-      "humidy": 15
+      "temp": 20,
+      "humidy": 17,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
     },
     {
-      "temp": 15,
-      "humidy": 17
+      "temp": 16,
+      "humidy": 21,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
     },
     {
       "temp": 19,
-      "humidy": 15
+      "humidy": 17,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
     },
     {
-      "temp": 15,
-      "humidy": 17
+      "temp": 18,
+      "humidy": 17,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
+    },
+    {
+      "temp": 20,
+      "humidy": 21,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
+    },
+    {
+      "temp": 18,
+      "humidy": 23,
+      "outputV": 30,
+      "ugm3": 30,
+      "aqi": 30
     }
   ]
 }

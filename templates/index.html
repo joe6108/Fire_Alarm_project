@@ -43,92 +43,34 @@
             </canvas>
         </div>
         <script>
-            var url = "";
+            var url1 = "http://127.0.0.1:5000/json";
+            var url2 = "http://127.0.0.1:5000/json2";
             $(document).ready(function () {
                 var jsonData;
                 var Temp_image; 
-                $.getJSON(url, function (data) {
+                var jsonData2;
+                // 定義一個 Deferred 物件
+                var deferred1 = $.Deferred();
+                var deferred2 = $.Deferred();
+
+                // 第一個非同步請求
+                $.getJSON(url1, function(data) {
                     jsonData = data;
-                    temp_image_init();
+                    // 解析完成後解析 Deferred 物件
+                    deferred1.resolve();
                 });
-                function temp_image_init() {
-                    var total = jsonData["total"];
-                    var count = jsonData["count"];
-                    if (count > total) {
-                        count = total;
-                    }
-                    var labels = new Array(count);
-                    var first_data = new Array(count);
-                    var secord_data = new Array(count);
-                    for (var i = 0; i < count; i++) {
-                        labels[i] = i;
-                        first_data[i] = jsonData["data"][i]["temp"];
-                        secord_data[i] = jsonData["data"][i]["humidy"];
-                    }
-                    const data = {
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: 'Dataset 1',
-                                data: first_data,
-                                fill: false,
-                                borderColor: 'rgb(75, 192, 192)',
-                                tension: 0.1
-                            },
-                            {
-                                label: 'Dataset 2',
-                                data: secord_data,
-                                fill: false,
-                                borderColor: 'rgb(255, 110, 110)',
-                                tension: 0.1
-                            }
-                        ]
-                    };
-        
-                    const config = {
-                        type: 'line',
-                        data: data,
-                        options: {
-                            scales: {
-                                x: {
-                                    display: false
-                                },
-                                y: {
-                                    beginAtZero: true,
-                                    position: 'left',
-                                    yAxisID: 'y-axis-1'  // 設定 yAxisID
-                                }
-                            },
-                            layout: {
-                                padding: {
-                                    left: 100,
-                                    right: 100
-                                }
-                            },
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Temp image per serord...'
-                                }
-                            }
-                        },
-                    };
-                    const ctx = document.getElementById('Temp_image').getContext('2d');
-                    Temp_image = new Chart(ctx, config);
-                    document.getElementById("p1").innerHTML = "init!";
-                }
-        
-                function temp_image_update() {
-                    $.getJSON(url, function (data) {
-                        jsonData = data;
-                        update_image();
-                    });
-        
-                    function update_image() {
+
+                // 第二個非同步請求
+                $.getJSON(url2, function(data) {
+                    jsonData2 = data;
+                    // 解析完成後解析 Deferred 物件
+                    deferred2.resolve();
+                });
+
+                // 等待兩個請求都完成
+                $.when(deferred1, deferred2).done(function() {
+                    temp_image_init();
+                    function temp_image_init() {
                         var total = jsonData["total"];
                         var count = jsonData["count"];
                         if (count > total) {
@@ -140,7 +82,7 @@
                         for (var i = 0; i < count; i++) {
                             labels[i] = i;
                             first_data[i] = jsonData["data"][i]["temp"];
-                            secord_data[i] = jsonData["data"][i]["humidy"];
+                            secord_data[i] = jsonData2["data"][i]["temp"];
                         }
                         const data = {
                             labels: labels,
@@ -156,12 +98,12 @@
                                     label: 'Dataset 2',
                                     data: secord_data,
                                     fill: false,
-                                    borderColor: 'rgb(75, 192, 192)',
+                                    borderColor: 'rgb(255, 110, 110)',
                                     tension: 0.1
                                 }
                             ]
                         };
-        
+            
                         const config = {
                             type: 'line',
                             data: data,
@@ -169,6 +111,11 @@
                                 scales: {
                                     x: {
                                         display: false
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        position: 'left',
+                                        yAxisID: 'y-axis-1'  // 設定 yAxisID
                                     }
                                 },
                                 layout: {
@@ -184,117 +131,151 @@
                                     },
                                     title: {
                                         display: true,
-                                        text: 'Chart.js Line Chart'
+                                        text: 'Temp image per serord...'
                                     }
                                 }
                             },
                         };
-                        Temp_image.data.labels = labels;
-                        Temp_image.data.datasets[0].data = first_data;
-                        Temp_image.data.datasets[1].data = secord_data;
-                        Temp_image.update();
-                        document.getElementById("p1").innerHTML = "update!";
+                        const ctx = document.getElementById('Temp_image').getContext('2d');
+                        Temp_image = new Chart(ctx, config);
+                        document.getElementById("p1").innerHTML = "init!";
                     }
-                }
+                });
         
+                function temp_image_update() {
+                    // 定義一個 Deferred 物件
+                    var deferred1 = $.Deferred();
+                    var deferred2 = $.Deferred();
+
+                    // 第一個非同步請求
+                    $.getJSON(url1, function(data) {
+                        jsonData = data;
+                        // 解析完成後解析 Deferred 物件
+                        deferred1.resolve();
+                    });
+
+                    // 第二個非同步請求
+                    $.getJSON(url2, function(data) {
+                        jsonData2 = data;
+                        // 解析完成後解析 Deferred 物件
+                        deferred2.resolve();
+                    });
+
+                    // 等待兩個請求都完成
+                    $.when(deferred1, deferred2).done(function() {
+                        update_image();
+                        function update_image() {
+                            var total = jsonData["total"];
+                            var count = jsonData["count"];
+                            if (count > total) {
+                                count = total;
+                            }
+                            var labels = new Array(count);
+                            var first_data = new Array(count);
+                            var secord_data = new Array(count);
+                            for (var i = 0; i < count; i++) {
+                                labels[i] = i;
+                                first_data[i] = jsonData["data"][i]["temp"];
+                                secord_data[i] = jsonData2["data"][i]["temp"];
+                            }
+                            const data = {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Dataset 1',
+                                        data: first_data,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Dataset 2',
+                                        data: secord_data,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    }
+                                ]
+                            };
+            
+                            const config = {
+                                type: 'line',
+                                data: data,
+                                options: {
+                                    scales: {
+                                        x: {
+                                            display: false
+                                        }
+                                    },
+                                    layout: {
+                                        padding: {
+                                            left: 100,
+                                            right: 100
+                                        }
+                                    },
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Chart.js Line Chart'
+                                        }
+                                    }
+                                },
+                            };
+                            Temp_image.data.labels = labels;
+                            Temp_image.data.datasets[0].data = first_data;
+                            Temp_image.data.datasets[1].data = secord_data;
+                            Temp_image.update();
+                            document.getElementById("p1").innerHTML = "update!";
+                        }
+                    })
+                    
+                }
                 var intervalId = setInterval(temp_image_update, 1000);
             });
-        </script>
-         
+        </script> 
     </div>
-
+    
     <div class="p-5 text-center border-bottom" id="humidy">
         <h2>濕度</h2>
         <p id="p2">Hello World!</p>
         <div>
-            <canvas id="hum_image" width="3" height="1">
+            <canvas id="Hum_image" width="3" height="1">
                 <p>Hello Fallback World</p>
             </canvas>
         </div>
         <script>
+            var url1 = "http://127.0.0.1:5000/json";
+            var url2 = "http://127.0.0.1:5000/json2";
             $(document).ready(function () {
                 var jsonData;
-                var hum_image; 
-        
-                $.getJSON(url, function (data) {
+                var Hum_image; 
+                var jsonData2;
+                // 定義一個 Deferred 物件
+                var deferred1 = $.Deferred();
+                var deferred2 = $.Deferred();
+
+                // 第一個非同步請求
+                $.getJSON(url1, function(data) {
                     jsonData = data;
-                    hum_image_init();
+                    // 解析完成後解析 Deferred 物件
+                    deferred1.resolve();
                 });
-                function hum_image_init() {
-                    var total = jsonData["total"];
-                    var count = jsonData["count"];
-                    if (count > total) {
-                        count = total;
-                    }
-                    var labels = new Array(count);
-                    var first_data = new Array(count);
-                    var secord_data = new Array(count);
-                    for (var i = 0; i < count; i++) {
-                        labels[i] = i;
-                        first_data[i] = jsonData["data"][i]["humidy"];
-                        secord_data[i] = jsonData["data"][i]["temp"];
-                    }
-                    const data = {
-                        labels: labels,
-                        datasets: [
-                            {
-                                label: 'Dataset 1',
-                                data: first_data,
-                                fill: false,
-                                borderColor: 'rgb(75, 192, 192)',
-                                tension: 0.1
-                            },
-                            {
-                                label: 'Dataset 2',
-                                data: secord_data,
-                                fill: false,
-                                borderColor: 'rgb(255, 110, 110)',
-                                tension: 0.1
-                            }
-                        ]
-                    };
-        
-                    const config = {
-                        type: 'line',
-                        data: data,
-                        options: {
-                            scales: {
-                                x: {
-                                    display: false // 將 x 軸的值隱藏
-                                }
-                            },
-                            layout: {
-                                padding: {
-                                    left: 100,
-                                    right: 100
-                                }
-                            },
-                            responsive: true,
-                            plugins: {
-                                legend: {
-                                    position: 'top',
-                                },
-                                title: {
-                                    display: true,
-                                    text: 'Humidy image per serord...'
-                                }
-                            }
-                        },
-                    };
-        
-                    const ctx = document.getElementById('hum_image').getContext('2d');
-                    hum_image = new Chart(ctx, config);
-                    document.getElementById("p2").innerHTML = "init!";
-                }
-        
-                function hum_image_update() {
-                    $.getJSON(url, function (data) {
-                        jsonData = data;
-                        hum_update_image();
-                    });
-        
-                    function hum_update_image() {
-                        // x軸
+
+                // 第二個非同步請求
+                $.getJSON(url2, function(data) {
+                    jsonData2 = data;
+                    // 解析完成後解析 Deferred 物件
+                    deferred2.resolve();
+                });
+
+                // 等待兩個請求都完成
+                $.when(deferred1, deferred2).done(function() {
+                    Hum_image_init();
+                    function Hum_image_init() {
                         var total = jsonData["total"];
                         var count = jsonData["count"];
                         if (count > total) {
@@ -306,7 +287,7 @@
                         for (var i = 0; i < count; i++) {
                             labels[i] = i;
                             first_data[i] = jsonData["data"][i]["humidy"];
-                            secord_data[i] = jsonData["data"][i]["temp"];
+                            secord_data[i] = jsonData2["data"][i]["humidy"];
                         }
                         const data = {
                             labels: labels,
@@ -322,12 +303,12 @@
                                     label: 'Dataset 2',
                                     data: secord_data,
                                     fill: false,
-                                    borderColor: 'rgb(75, 192, 192)',
+                                    borderColor: 'rgb(255, 110, 110)',
                                     tension: 0.1
                                 }
                             ]
                         };
-        
+            
                         const config = {
                             type: 'line',
                             data: data,
@@ -335,6 +316,11 @@
                                 scales: {
                                     x: {
                                         display: false
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        position: 'left',
+                                        yAxisID: 'y-axis-1'  // 設定 yAxisID
                                     }
                                 },
                                 layout: {
@@ -350,27 +336,524 @@
                                     },
                                     title: {
                                         display: true,
-                                        text: 'Humidy'
+                                        text: 'humidy image per serord...'
                                     }
                                 }
                             },
                         };
-        
-                        // 更新圖表
-                        hum_image.data.labels = labels;
-                        hum_image.data.datasets[0].data = first_data;
-                        hum_image.data.datasets[1].data = secord_data;
-                        hum_image.update();
-                        document.getElementById("p2").innerHTML = "update!";
+                        const ctx = document.getElementById('Hum_image').getContext('2d');
+                        Hum_image = new Chart(ctx, config);
+                        document.getElementById("p2").innerHTML = "init!";
                     }
-                }
+                });
         
-                var intervalId = setInterval(hum_image_update, 1000);
+                function Hum_image_update() {
+                    // 定義一個 Deferred 物件
+                    var deferred1 = $.Deferred();
+                    var deferred2 = $.Deferred();
+
+                    // 第一個非同步請求
+                    $.getJSON(url1, function(data) {
+                        jsonData = data;
+                        // 解析完成後解析 Deferred 物件
+                        deferred1.resolve();
+                    });
+
+                    // 第二個非同步請求
+                    $.getJSON(url2, function(data) {
+                        jsonData2 = data;
+                        // 解析完成後解析 Deferred 物件
+                        deferred2.resolve();
+                    });
+
+                    // 等待兩個請求都完成
+                    $.when(deferred1, deferred2).done(function() {
+                        update_image();
+                        function update_image() {
+                            var total = jsonData["total"];
+                            var count = jsonData["count"];
+                            if (count > total) {
+                                count = total;
+                            }
+                            var labels = new Array(count);
+                            var first_data = new Array(count);
+                            var secord_data = new Array(count);
+                            for (var i = 0; i < count; i++) {
+                                labels[i] = i;
+                                first_data[i] = jsonData["data"][i]["humidy"];
+                                secord_data[i] = jsonData2["data"][i]["humidy"];
+                            }
+                            const data = {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Dataset 1',
+                                        data: first_data,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Dataset 2',
+                                        data: secord_data,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    }
+                                ]
+                            };
+            
+                            const config = {
+                                type: 'line',
+                                data: data,
+                                options: {
+                                    scales: {
+                                        x: {
+                                            display: false
+                                        }
+                                    },
+                                    layout: {
+                                        padding: {
+                                            left: 100,
+                                            right: 100
+                                        }
+                                    },
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Chart.js Line Chart'
+                                        }
+                                    }
+                                },
+                            };
+                            Hum_image.data.labels = labels;
+                            Hum_image.data.datasets[0].data = first_data;
+                            Hum_image.data.datasets[1].data = secord_data;
+                            Hum_image.update();
+                            document.getElementById("p2").innerHTML = "update!";
+                        }
+                    })
+                    
+                }
+                var intervalId = setInterval(Hum_image_update, 1000);
             });
-        </script>
-         
+        </script> 
     </div>
-    
+
+    <div class="p-5 text-center border-bottom" id="ugm3">
+        <h2>灰塵濃度</h2>
+        <p id="p3">Hello World!</p>
+        <div>
+            <canvas id="Ugm3_image" width="3" height="1">
+                <p>Hello Fallback World</p>
+            </canvas>
+        </div>
+        <script>
+            var url1 = "http://127.0.0.1:5000/json";
+            var url2 = "http://127.0.0.1:5000/json2";
+            $(document).ready(function () {
+                var jsonData;
+                var Ugm3_image; 
+                var jsonData2;
+                // 定義一個 Deferred 物件
+                var deferred1 = $.Deferred();
+                var deferred2 = $.Deferred();
+
+                // 第一個非同步請求
+                $.getJSON(url1, function(data) {
+                    jsonData = data;
+                    // 解析完成後解析 Deferred 物件
+                    deferred1.resolve();
+                });
+
+                // 第二個非同步請求
+                $.getJSON(url2, function(data) {
+                    jsonData2 = data;
+                    // 解析完成後解析 Deferred 物件
+                    deferred2.resolve();
+                });
+
+                // 等待兩個請求都完成
+                $.when(deferred1, deferred2).done(function() {
+                    Ugm3_image_init();
+                    function Ugm3_image_init() {
+                        var total = jsonData["total"];
+                        var count = jsonData["count"];
+                        if (count > total) {
+                            count = total;
+                        }
+                        var labels = new Array(count);
+                        var first_data = new Array(count);
+                        var secord_data = new Array(count);
+                        for (var i = 0; i < count; i++) {
+                            labels[i] = i;
+                            first_data[i] = jsonData["data"][i]["ugm3"];
+                            secord_data[i] = jsonData2["data"][i]["ugm3"];
+                        }
+                        const data = {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Dataset 1',
+                                    data: first_data,
+                                    fill: false,
+                                    borderColor: 'rgb(75, 192, 192)',
+                                    tension: 0.1
+                                },
+                                {
+                                    label: 'Dataset 2',
+                                    data: secord_data,
+                                    fill: false,
+                                    borderColor: 'rgb(255, 110, 110)',
+                                    tension: 0.1
+                                }
+                            ]
+                        };
+            
+                        const config = {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                scales: {
+                                    x: {
+                                        display: false
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        position: 'left',
+                                        yAxisID: 'y-axis-1'  // 設定 yAxisID
+                                    }
+                                },
+                                layout: {
+                                    padding: {
+                                        left: 100,
+                                        right: 100
+                                    }
+                                },
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'humidy image per serord...'
+                                    }
+                                }
+                            },
+                        };
+                        const ctx = document.getElementById('Ugm3_image').getContext('2d');
+                        Ugm3_image = new Chart(ctx, config);
+                        document.getElementById("p3").innerHTML = "init!";
+                    }
+                });
+        
+                function Ugm3_image_update() {
+                    // 定義一個 Deferred 物件
+                    var deferred1 = $.Deferred();
+                    var deferred2 = $.Deferred();
+
+                    // 第一個非同步請求
+                    $.getJSON(url1, function(data) {
+                        jsonData = data;
+                        // 解析完成後解析 Deferred 物件
+                        deferred1.resolve();
+                    });
+
+                    // 第二個非同步請求
+                    $.getJSON(url2, function(data) {
+                        jsonData2 = data;
+                        // 解析完成後解析 Deferred 物件
+                        deferred2.resolve();
+                    });
+
+                    // 等待兩個請求都完成
+                    $.when(deferred1, deferred2).done(function() {
+                        update_image();
+                        function update_image() {
+                            var total = jsonData["total"];
+                            var count = jsonData["count"];
+                            if (count > total) {
+                                count = total;
+                            }
+                            var labels = new Array(count);
+                            var first_data = new Array(count);
+                            var secord_data = new Array(count);
+                            for (var i = 0; i < count; i++) {
+                                labels[i] = i;
+                                first_data[i] = jsonData["data"][i]["ugm3"];
+                                secord_data[i] = jsonData2["data"][i]["ugm3"];
+                            }
+                            const data = {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Dataset 1',
+                                        data: first_data,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Dataset 2',
+                                        data: secord_data,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    }
+                                ]
+                            };
+            
+                            const config = {
+                                type: 'line',
+                                data: data,
+                                options: {
+                                    scales: {
+                                        x: {
+                                            display: false
+                                        }
+                                    },
+                                    layout: {
+                                        padding: {
+                                            left: 100,
+                                            right: 100
+                                        }
+                                    },
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Chart.js Line Chart'
+                                        }
+                                    }
+                                },
+                            };
+                            Ugm3_image.data.labels = labels;
+                            Ugm3_image.data.datasets[0].data = first_data;
+                            Ugm3_image.data.datasets[1].data = secord_data;
+                            Ugm3_image.update();
+                            document.getElementById("p3").innerHTML = "update!";
+                        }
+                    })
+                    
+                }
+                var intervalId = setInterval(Ugm3_image_update, 1000);
+            });
+        </script> 
+    </div>
+
+    <div class="p-5 text-center border-bottom" id="aqi">
+        <h2>空氣污染指數</h2>
+        <p id="p4">Hello World!</p>
+        <div>
+            <canvas id="Aqi_image" width="3" height="1">
+                <p>Hello Fallback World</p>
+            </canvas>
+        </div>
+        <script>
+            var url1 = "http://127.0.0.1:5000/json";
+            var url2 = "http://127.0.0.1:5000/json2";
+            $(document).ready(function () {
+                var jsonData;
+                var Aqi_image; 
+                var jsonData2;
+                // 定義一個 Deferred 物件
+                var deferred1 = $.Deferred();
+                var deferred2 = $.Deferred();
+
+                // 第一個非同步請求
+                $.getJSON(url1, function(data) {
+                    jsonData = data;
+                    // 解析完成後解析 Deferred 物件
+                    deferred1.resolve();
+                });
+
+                // 第二個非同步請求
+                $.getJSON(url2, function(data) {
+                    jsonData2 = data;
+                    // 解析完成後解析 Deferred 物件
+                    deferred2.resolve();
+                });
+
+                // 等待兩個請求都完成
+                $.when(deferred1, deferred2).done(function() {
+                    Aqi_image_init();
+                    function Aqi_image_init() {
+                        var total = jsonData["total"];
+                        var count = jsonData["count"];
+                        if (count > total) {
+                            count = total;
+                        }
+                        var labels = new Array(count);
+                        var first_data = new Array(count);
+                        var secord_data = new Array(count);
+                        for (var i = 0; i < count; i++) {
+                            labels[i] = i;
+                            first_data[i] = jsonData["data"][i]["aqi"];
+                            secord_data[i] = jsonData2["data"][i]["aqi"];
+                        }
+                        const data = {
+                            labels: labels,
+                            datasets: [
+                                {
+                                    label: 'Dataset 1',
+                                    data: first_data,
+                                    fill: false,
+                                    borderColor: 'rgb(75, 192, 192)',
+                                    tension: 0.1
+                                },
+                                {
+                                    label: 'Dataset 2',
+                                    data: secord_data,
+                                    fill: false,
+                                    borderColor: 'rgb(255, 110, 110)',
+                                    tension: 0.1
+                                }
+                            ]
+                        };
+            
+                        const config = {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                scales: {
+                                    x: {
+                                        display: false
+                                    },
+                                    y: {
+                                        beginAtZero: true,
+                                        position: 'left',
+                                        yAxisID: 'y-axis-1'  // 設定 yAxisID
+                                    }
+                                },
+                                layout: {
+                                    padding: {
+                                        left: 100,
+                                        right: 100
+                                    }
+                                },
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'humidy image per serord...'
+                                    }
+                                }
+                            },
+                        };
+                        const ctx = document.getElementById('Aqi_image').getContext('2d');
+                        Aqi_image = new Chart(ctx, config);
+                        document.getElementById("p4").innerHTML = "init!";
+                    }
+                });
+        
+                function Aqi_image_update() {
+                    // 定義一個 Deferred 物件
+                    var deferred1 = $.Deferred();
+                    var deferred2 = $.Deferred();
+
+                    // 第一個非同步請求
+                    $.getJSON(url1, function(data) {
+                        jsonData = data;
+                        // 解析完成後解析 Deferred 物件
+                        deferred1.resolve();
+                    });
+
+                    // 第二個非同步請求
+                    $.getJSON(url2, function(data) {
+                        jsonData2 = data;
+                        // 解析完成後解析 Deferred 物件
+                        deferred2.resolve();
+                    });
+
+                    // 等待兩個請求都完成
+                    $.when(deferred1, deferred2).done(function() {
+                        update_image();
+                        function update_image() {
+                            var total = jsonData["total"];
+                            var count = jsonData["count"];
+                            if (count > total) {
+                                count = total;
+                            }
+                            var labels = new Array(count);
+                            var first_data = new Array(count);
+                            var secord_data = new Array(count);
+                            for (var i = 0; i < count; i++) {
+                                labels[i] = i;
+                                first_data[i] = jsonData["data"][i]["aqi"];
+                                secord_data[i] = jsonData2["data"][i]["aqi"];
+                            }
+                            const data = {
+                                labels: labels,
+                                datasets: [
+                                    {
+                                        label: 'Dataset 1',
+                                        data: first_data,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    },
+                                    {
+                                        label: 'Dataset 2',
+                                        data: secord_data,
+                                        fill: false,
+                                        borderColor: 'rgb(75, 192, 192)',
+                                        tension: 0.1
+                                    }
+                                ]
+                            };
+            
+                            const config = {
+                                type: 'line',
+                                data: data,
+                                options: {
+                                    scales: {
+                                        x: {
+                                            display: false
+                                        }
+                                    },
+                                    layout: {
+                                        padding: {
+                                            left: 100,
+                                            right: 100
+                                        }
+                                    },
+                                    responsive: true,
+                                    plugins: {
+                                        legend: {
+                                            position: 'top',
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Chart.js Line Chart'
+                                        }
+                                    }
+                                },
+                            };
+                            Aqi_image.data.labels = labels;
+                            Aqi_image.data.datasets[0].data = first_data;
+                            Aqi_image.data.datasets[1].data = secord_data;
+                            Aqi_image.update();
+                            document.getElementById("p4").innerHTML = "update!";
+                        }
+                    })
+                    
+                }
+                var intervalId = setInterval(Aqi_image_update, 1000);
+            });
+        </script> 
+    </div>
+
 
     <footer class="p-4 border-top">
         <div class="container d-flex align-items-center justify-content-between">
