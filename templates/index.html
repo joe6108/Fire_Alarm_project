@@ -43,8 +43,8 @@
             </canvas>
         </div>
         <script>
-            var url1 = "http://127.0.0.1:5000/json";
-            var url2 = "http://127.0.0.1:5000/json2";
+            var url1 = "https://3672-163-13-133-69.ngrok-free.app/json";
+            var url2 = "https://3672-163-13-133-69.ngrok-free.app/json2";
             $(document).ready(function () {
                 var jsonData;
                 var Temp_image; 
@@ -248,8 +248,8 @@
             </canvas>
         </div>
         <script>
-            var url1 = "http://127.0.0.1:5000/json";
-            var url2 = "http://127.0.0.1:5000/json2";
+            var url1 = "https://3672-163-13-133-69.ngrok-free.app/json";
+            var url2 = "https://3672-163-13-133-69.ngrok-free.app/json2";
             $(document).ready(function () {
                 var jsonData;
                 var Hum_image; 
@@ -444,213 +444,8 @@
         </script> 
     </div>
 
-    <div class="p-5 text-center border-bottom" id="ugm3">
-        <h2>灰塵濃度</h2>
-        <p id="p3">Hello World!</p>
-        <div>
-            <canvas id="Ugm3_image" width="3" height="1">
-                <p>Hello Fallback World</p>
-            </canvas>
-        </div>
-        <script>
-            var url1 = "http://127.0.0.1:5000/json";
-            var url2 = "http://127.0.0.1:5000/json2";
-            $(document).ready(function () {
-                var jsonData;
-                var Ugm3_image; 
-                var jsonData2;
-                // 定義一個 Deferred 物件
-                var deferred1 = $.Deferred();
-                var deferred2 = $.Deferred();
-
-                // 第一個非同步請求
-                $.getJSON(url1, function(data) {
-                    jsonData = data;
-                    // 解析完成後解析 Deferred 物件
-                    deferred1.resolve();
-                });
-
-                // 第二個非同步請求
-                $.getJSON(url2, function(data) {
-                    jsonData2 = data;
-                    // 解析完成後解析 Deferred 物件
-                    deferred2.resolve();
-                });
-
-                // 等待兩個請求都完成
-                $.when(deferred1, deferred2).done(function() {
-                    Ugm3_image_init();
-                    function Ugm3_image_init() {
-                        var total = jsonData["total"];
-                        var count = jsonData["count"];
-                        if (count > total) {
-                            count = total;
-                        }
-                        var labels = new Array(count);
-                        var first_data = new Array(count);
-                        var secord_data = new Array(count);
-                        for (var i = 0; i < count; i++) {
-                            labels[i] = i;
-                            first_data[i] = jsonData["data"][i]["ugm3"];
-                            secord_data[i] = jsonData2["data"][i]["ugm3"];
-                        }
-                        const data = {
-                            labels: labels,
-                            datasets: [
-                                {
-                                    label: 'Dataset 1',
-                                    data: first_data,
-                                    fill: false,
-                                    borderColor: 'rgb(75, 192, 192)',
-                                    tension: 0.1
-                                },
-                                {
-                                    label: 'Dataset 2',
-                                    data: secord_data,
-                                    fill: false,
-                                    borderColor: 'rgb(255, 110, 110)',
-                                    tension: 0.1
-                                }
-                            ]
-                        };
-            
-                        const config = {
-                            type: 'line',
-                            data: data,
-                            options: {
-                                scales: {
-                                    x: {
-                                        display: false
-                                    },
-                                    y: {
-                                        beginAtZero: true,
-                                        position: 'left',
-                                        yAxisID: 'y-axis-1'  // 設定 yAxisID
-                                    }
-                                },
-                                layout: {
-                                    padding: {
-                                        left: 100,
-                                        right: 100
-                                    }
-                                },
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'top',
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: 'humidy image per serord...'
-                                    }
-                                }
-                            },
-                        };
-                        const ctx = document.getElementById('Ugm3_image').getContext('2d');
-                        Ugm3_image = new Chart(ctx, config);
-                        document.getElementById("p3").innerHTML = "init!";
-                    }
-                });
-        
-                function Ugm3_image_update() {
-                    // 定義一個 Deferred 物件
-                    var deferred1 = $.Deferred();
-                    var deferred2 = $.Deferred();
-
-                    // 第一個非同步請求
-                    $.getJSON(url1, function(data) {
-                        jsonData = data;
-                        // 解析完成後解析 Deferred 物件
-                        deferred1.resolve();
-                    });
-
-                    // 第二個非同步請求
-                    $.getJSON(url2, function(data) {
-                        jsonData2 = data;
-                        // 解析完成後解析 Deferred 物件
-                        deferred2.resolve();
-                    });
-
-                    // 等待兩個請求都完成
-                    $.when(deferred1, deferred2).done(function() {
-                        update_image();
-                        function update_image() {
-                            var total = jsonData["total"];
-                            var count = jsonData["count"];
-                            if (count > total) {
-                                count = total;
-                            }
-                            var labels = new Array(count);
-                            var first_data = new Array(count);
-                            var secord_data = new Array(count);
-                            for (var i = 0; i < count; i++) {
-                                labels[i] = i;
-                                first_data[i] = jsonData["data"][i]["ugm3"];
-                                secord_data[i] = jsonData2["data"][i]["ugm3"];
-                            }
-                            const data = {
-                                labels: labels,
-                                datasets: [
-                                    {
-                                        label: 'Dataset 1',
-                                        data: first_data,
-                                        fill: false,
-                                        borderColor: 'rgb(75, 192, 192)',
-                                        tension: 0.1
-                                    },
-                                    {
-                                        label: 'Dataset 2',
-                                        data: secord_data,
-                                        fill: false,
-                                        borderColor: 'rgb(75, 192, 192)',
-                                        tension: 0.1
-                                    }
-                                ]
-                            };
-            
-                            const config = {
-                                type: 'line',
-                                data: data,
-                                options: {
-                                    scales: {
-                                        x: {
-                                            display: false
-                                        }
-                                    },
-                                    layout: {
-                                        padding: {
-                                            left: 100,
-                                            right: 100
-                                        }
-                                    },
-                                    responsive: true,
-                                    plugins: {
-                                        legend: {
-                                            position: 'top',
-                                        },
-                                        title: {
-                                            display: true,
-                                            text: 'Chart.js Line Chart'
-                                        }
-                                    }
-                                },
-                            };
-                            Ugm3_image.data.labels = labels;
-                            Ugm3_image.data.datasets[0].data = first_data;
-                            Ugm3_image.data.datasets[1].data = secord_data;
-                            Ugm3_image.update();
-                            document.getElementById("p3").innerHTML = "update!";
-                        }
-                    })
-                    
-                }
-                var intervalId = setInterval(Ugm3_image_update, 1000);
-            });
-        </script> 
-    </div>
-
     <div class="p-5 text-center border-bottom" id="aqi">
-        <h2>空氣污染指數</h2>
+        <h2>空氣品質指數</h2>
         <p id="p4">Hello World!</p>
         <div>
             <canvas id="Aqi_image" width="3" height="1">
@@ -658,8 +453,8 @@
             </canvas>
         </div>
         <script>
-            var url1 = "http://127.0.0.1:5000/json";
-            var url2 = "http://127.0.0.1:5000/json2";
+            var url1 = "https://3672-163-13-133-69.ngrok-free.app/json";
+            var url2 = "https://3672-163-13-133-69.ngrok-free.app/json2";
             $(document).ready(function () {
                 var jsonData;
                 var Aqi_image; 

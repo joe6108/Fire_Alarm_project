@@ -1,76 +1,506 @@
 {
-  "total": 10,
-  "count": 277,
+  "total": 100,
+  "count": 3478,
   "data": [
     {
-      "temp": 19,
-      "humidy": 18,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
-    },
-    {
-      "temp": 19,
-      "humidy": 17,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
-    },
-    {
-      "temp": 15,
-      "humidy": 19,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 203.2144
     },
     {
       "temp": 20,
-      "humidy": 21,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
+      "humidy": 60,
+      "aqi": 219.6206
     },
     {
       "temp": 20,
-      "humidy": 17,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
-    },
-    {
-      "temp": 16,
-      "humidy": 21,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
-    },
-    {
-      "temp": 19,
-      "humidy": 17,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
-    },
-    {
-      "temp": 18,
-      "humidy": 17,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
+      "humidy": 60,
+      "aqi": 199.1128
     },
     {
       "temp": 20,
-      "humidy": 21,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
+      "humidy": 60,
+      "aqi": 207.3159
     },
     {
-      "temp": 18,
-      "humidy": 23,
-      "outputV": 30,
-      "ugm3": 30,
-      "aqi": 30
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 158.0972
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 174.5034
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 207.3159
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 182.7066
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 195.0112
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 178.605
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 195.0112
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 195.0112
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 203.2144
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 178.605
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 170.4019
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 145.7925
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 186.8081
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 195.0112
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 170.4019
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 182.7066
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 227.8237
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 186.8081
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 158.0972
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 145.7925
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 207.3159
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 174.5034
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 195.0112
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 195.0112
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 145.7925
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 211.4175
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 158.0972
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 186.8081
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 137.5894
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 170.4019
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 178.605
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 145.7925
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 137.5894
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 141.6909
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 100.6753
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 158.0972
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 174.5034
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 244.23
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 182.7066
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 153.9956
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 190.9097
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 195.0112
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 199.1128
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 186.8081
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 215.5191
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 153.9956
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 149.8941
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 153.9956
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 153.9956
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 170.4019
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 215.5191
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 207.3159
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 145.7925
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 174.5034
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 158.0972
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 137.5894
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 137.5894
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 186.8081
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 203.2144
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 182.7066
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 162.1987
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 162.1987
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 121.1831
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 158.0972
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 121.1831
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 121.1831
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 149.8941
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 186.8081
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 178.605
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 174.5034
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 149.8941
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 174.5034
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 170.4019
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 178.605
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 182.7066
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 195.0112
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 153.9956
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 121.1831
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 178.605
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 137.5894
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 125.2847
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 166.3003
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 207.3159
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 112.98
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 137.5894
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 186.8081
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 149.8941
+    },
+    {
+      "temp": 20,
+      "humidy": 60,
+      "aqi": 162.1987
     }
   ]
 }
